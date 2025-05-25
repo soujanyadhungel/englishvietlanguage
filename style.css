@@ -1,0 +1,227 @@
+/* Custom styles for Vocabulary Learning App */
+
+body {
+    background: var(--bs-light);
+    color: var(--bs-dark);
+}
+
+/* Card styling */
+.card {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    background-color: var(--bs-secondary);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+/* Table styling */
+.table {
+    --bs-table-color: var(--bs-light);
+    --bs-table-bg: transparent;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--bs-secondary);
+}
+
+.table-responsive {
+    border-radius: 0.375rem;
+}
+
+/* Form styling */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Button styling */
+.btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 0.5rem;
+    border: none;
+}
+
+/* Badge styling */
+.badge {
+    font-size: 0.75em;
+}
+
+/* Text wrapping for long content */
+.text-wrap {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Loading animation */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+/* Empty state styling */
+.text-center .fa-4x {
+    opacity: 0.3;
+}
+
+/* Form text styling */
+.form-text {
+    font-size: 0.875rem;
+    color: var(--bs-secondary-color);
+}
+
+/* Action buttons */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Table header icons */
+thead th i {
+    opacity: 0.8;
+}
+
+/* Success and error states */
+.text-success {
+    color: var(--bs-success) !important;
+}
+
+.text-danger {
+    color: var(--bs-danger) !important;
+}
+
+.text-warning {
+    color: var(--bs-warning) !important;
+}
+
+.text-info {
+    color: var(--bs-info) !important;
+}
+
+/* Card border colors for different states */
+.border-primary {
+    border-color: var(--bs-primary) !important;
+}
+
+/* Improved spacing */
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+/* Better visual hierarchy */
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+/* Icon spacing */
+.me-1 { margin-right: 0.25rem !important; }
+.me-2 { margin-right: 0.5rem !important; }
+.me-3 { margin-right: 1rem !important; }
+.ms-2 { margin-left: 0.5rem !important; }
+
+/* Add word row styling */
+.add-word-row td {
+    padding: 0.75rem !important;
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+    border-top: 2px solid var(--bs-primary);
+}
+
+.add-word-row .input-group {
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.add-word-row .form-control {
+    border: none;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.add-word-row .form-control:focus {
+    box-shadow: none;
+    background-color: var(--bs-body-bg);
+    border-color: transparent;
+}
+
+.add-word-row .input-group-text {
+    border: none;
+}
+
+.add-word-row .btn {
+    border: none;
+    border-radius: 0;
+}
+
+/* Empty state card footer */
+.card-footer {
+    background-color: rgba(var(--bs-secondary-rgb), 0.1);
+    border-top: 1px solid var(--bs-border-color);
+}
+
+/* Text-to-speech button styling */
+.speak-btn {
+    padding: 0.25rem 0.35rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.speak-btn:hover {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+    transform: scale(1.1);
+}
+
+.speak-btn.speaking {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: white;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Flexbox improvements for text content with speak buttons */
+.d-flex .text-wrap,
+.d-flex em {
+    flex: 1;
+    min-width: 0;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0;
+}

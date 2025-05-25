@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Learning App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="row mb-4">
+                    <div class="col-12">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else ('warning' if category == 'warning' else ('info' if category == 'info' else 'success')) }} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else ('exclamation-circle' if category == 'warning' else ('info-circle' if category == 'info' else 'check-circle')) }} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+
+
+        <!-- Search and Actions -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form method="GET" action="{{ url_for('search') }}">
+                    <div class="input-group">
+                        <input type="text" 
+                               class="form-control" 
+                               name="q" 
+                               placeholder="Search vocabulary..."
+                               value="{{ search_query or '' }}">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                {% if vocabulary_data %}
+                    <a href="{{ url_for('export_csv') }}" class="btn btn-outline-success me-2">
+                        <i class="fas fa-download me-2"></i>
+                        Export CSV
+                    </a>
+                {% endif %}
+                {% if search_query %}
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>
+                        Clear Search
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Vocabulary Table -->
+        <div class="row">
+            <div class="col-12">
+                {% if vocabulary_data %}
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-table me-2"></i>
+                                Your Vocabulary 
+                                <span class="badge bg-primary ms-2">{{ vocabulary_data|length }} words</span>
+                            </h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">
+                                                <i class="fas fa-language me-2"></i>
+                                                English Word
+                                            </th>
+                                            <th scope="col">
+                                                <i class="fas fa-book me-2"></i>
+                                                English Definition
+                                            </th>
+                                            <th scope="col">
+                                                <i class="fas fa-quote-right me-2"></i>
+                                                English Example
+                                            </th>
+                                            <th scope="col">
+                                                <i class="fas fa-globe me-2"></i>
+                                                Vietnamese Definition
+                                            </th>
+                                            <th scope="col">
+                                                <i class="fas fa-comments me-2"></i>
+                                                Vietnamese Example
+                                            </th>
+                                            <th scope="col" width="100">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for entry in vocabulary_data %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <strong class="text-primary me-2">{{ entry['English Word'] }}</strong>
+                                                        <button class="btn btn-sm btn-outline-secondary speak-btn" 
+                                                                data-text="{{ entry['English Word'] }}" 
+                                                                data-lang="en"
+                                                                title="Listen to pronunciation">
+                                                            <i class="fas fa-microphone-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-start">
+                                                        <span class="text-wrap me-2">{{ entry['English Definition'] }}</span>
+                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
+                                                                data-text="{{ entry['English Definition'] }}" 
+                                                                data-lang="en"
+                                                                title="Listen to definition">
+                                                            <i class="fas fa-microphone-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-start">
+                                                        <em class="text-muted me-2">{{ entry['English Example'] }}</em>
+                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
+                                                                data-text="{{ entry['English Example'] }}" 
+                                                                data-lang="en"
+                                                                title="Listen to example">
+                                                            <i class="fas fa-microphone-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-start">
+                                                        <span class="text-wrap me-2">{{ entry['Vietnamese Definition'] }}</span>
+                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
+                                                                data-text="{{ entry['Vietnamese Definition'] }}" 
+                                                                data-lang="vi"
+                                                                title="Nghe định nghĩa">
+                                                            <i class="fas fa-microphone-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-start">
+                                                        <em class="text-muted me-2">{{ entry['Vietnamese Example'] }}</em>
+                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
+                                                                data-text="{{ entry['Vietnamese Example'] }}" 
+                                                                data-lang="vi"
+                                                                title="Nghe ví dụ">
+                                                            <i class="fas fa-microphone-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url_for('delete_word', word=entry['English Word']) }}" 
+                                                       class="btn btn-sm btn-outline-danger"
+                                                       onclick="return confirm('Are you sure you want to delete this word?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        <!-- Add New Word Row -->
+                                        <tr class="add-word-row">
+                                            <td colspan="6" class="p-0">
+                                                <form method="POST" action="{{ url_for('add_word') }}" class="m-0">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text bg-primary text-white">
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </span>
+                                                        <input type="text" 
+                                                               class="form-control" 
+                                                               name="english_word" 
+                                                               placeholder="Type a new English word and press Enter..."
+                                                               required
+                                                               autocomplete="off">
+                                                        <button class="btn btn-primary" type="submit">
+                                                            <i class="fas fa-search me-1"></i>
+                                                            Add Word
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% if search_query %}
+                        <div class="text-center py-5">
+                            <div class="mb-4">
+                                <i class="fas fa-search fa-4x text-muted"></i>
+                            </div>
+                            <h3 class="text-muted">No vocabulary found for "{{ search_query }}"</h3>
+                            <p class="text-muted mb-4">
+                                Try searching for different terms or <a href="{{ url_for('index') }}">view all words</a>.
+                            </p>
+                        </div>
+                    {% else %}
+                        <!-- Empty state with inline add form -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">
+                                    <i class="fas fa-table me-2"></i>
+                                    Your Vocabulary 
+                                    <span class="badge bg-primary ms-2">0 words</span>
+                                </h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col">
+                                                    <i class="fas fa-language me-2"></i>
+                                                    English Word
+                                                </th>
+                                                <th scope="col">
+                                                    <i class="fas fa-book me-2"></i>
+                                                    English Definition
+                                                </th>
+                                                <th scope="col">
+                                                    <i class="fas fa-quote-right me-2"></i>
+                                                    English Example
+                                                </th>
+                                                <th scope="col">
+                                                    <i class="fas fa-globe me-2"></i>
+                                                    Vietnamese Definition
+                                                </th>
+                                                <th scope="col">
+                                                    <i class="fas fa-comments me-2"></i>
+                                                    Vietnamese Example
+                                                </th>
+                                                <th scope="col" width="100">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Add New Word Row -->
+                                            <tr class="add-word-row">
+                                                <td colspan="6" class="p-0">
+                                                    <form method="POST" action="{{ url_for('add_word') }}" class="m-0">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text bg-primary text-white">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </span>
+                                                            <input type="text" 
+                                                                   class="form-control" 
+                                                                   name="english_word" 
+                                                                   placeholder="Type your first English word and press Enter to get started..."
+                                                                   required
+                                                                   autocomplete="off">
+                                                            <button class="btn btn-primary" type="submit">
+                                                                <i class="fas fa-search me-1"></i>
+                                                                Add Word
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <div class="text-center">
+                                            <h6 class="text-primary mb-3">
+                                                <i class="fas fa-lightbulb me-2"></i>
+                                                How it works:
+                                            </h6>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-2">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-check text-success me-2"></i>
+                                                        Enter an English word
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-6 mb-2">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-check text-success me-2"></i>
+                                                        Get automatic definition and example
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-6 mb-2">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-check text-success me-2"></i>
+                                                        Receive Vietnamese translations
+                                                    </small>
+                                                </div>
+                                                <div class="col-md-6 mb-2">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-check text-success me-2"></i>
+                                                        Build your vocabulary collection
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Auto-focus on word input and text-to-speech functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-focus on the word input field
+            const wordInput = document.querySelector('input[name="english_word"]');
+            if (wordInput) {
+                wordInput.focus();
+            }
+            
+            // Add Enter key submission for better UX
+            const addWordForms = document.querySelectorAll('form[action*="add_word"]');
+            addWordForms.forEach(form => {
+                const input = form.querySelector('input[name="english_word"]');
+                if (input) {
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            form.submit();
+                        }
+                    });
+                }
+            });
+            
+            // Text-to-Speech functionality
+            let currentSpeechUtterance = null;
+            let currentAudio = null;
+            
+            // Function to play audio from base64 data
+            function playGoogleTTSAudio(audioContent) {
+                try {
+                    const audioBlob = new Blob([Uint8Array.from(atob(audioContent), c => c.charCodeAt(0))], { type: 'audio/mp3' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    currentAudio = new Audio(audioUrl);
+                    currentAudio.play();
+                    return true;
+                } catch (error) {
+                    console.error('Error playing Google TTS audio:', error);
+                    return false;
+                }
+            }
+            
+            // Function to use browser fallback
+            function useBrowserTTS(text, lang, icon, button) {
+                if ('speechSynthesis' in window) {
+                    // Stop any current speech
+                    if (currentSpeechUtterance) {
+                        speechSynthesis.cancel();
+                    }
+                    
+                    // Create new speech utterance
+                    currentSpeechUtterance = new SpeechSynthesisUtterance(text);
+                    currentSpeechUtterance.lang = lang === 'en' ? 'en-US' : 'vi-VN';
+                    currentSpeechUtterance.rate = 0.8;
+                    currentSpeechUtterance.pitch = 1;
+                    currentSpeechUtterance.volume = 1;
+                    
+                    // Visual feedback
+                    currentSpeechUtterance.onstart = function() {
+                        icon.className = 'fas fa-volume-up text-primary';
+                        button.classList.add('speaking');
+                    };
+                    
+                    currentSpeechUtterance.onend = function() {
+                        icon.className = 'fas fa-microphone-alt';
+                        button.classList.remove('speaking');
+                        currentSpeechUtterance = null;
+                    };
+                    
+                    currentSpeechUtterance.onerror = function(event) {
+                        console.error('Speech synthesis error:', event.error);
+                        icon.className = 'fas fa-microphone-alt';
+                        button.classList.remove('speaking');
+                        currentSpeechUtterance = null;
+                    };
+                    
+                    speechSynthesis.speak(currentSpeechUtterance);
+                }
+            }
+            
+            // Add click listeners to all speak buttons
+            document.querySelectorAll('.speak-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const text = this.getAttribute('data-text');
+                    const lang = this.getAttribute('data-lang');
+                    const icon = this.querySelector('i');
+                    
+                    // Stop any current audio
+                    if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                    }
+                    if (currentSpeechUtterance) {
+                        speechSynthesis.cancel();
+                    }
+                    
+                    // Show loading state
+                    icon.className = 'fas fa-spinner fa-spin text-primary';
+                    button.classList.add('speaking');
+                    
+                    // Use Google TTS for all languages (both English and Vietnamese)
+                    fetch('/generate_audio', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            text: text,
+                            language: lang
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && data.audio) {
+                            // Play Google TTS audio
+                            const success = playGoogleTTSAudio(data.audio);
+                            if (success) {
+                                icon.className = 'fas fa-volume-up text-success';
+                                // Reset after audio ends
+                                currentAudio.onended = function() {
+                                    icon.className = 'fas fa-microphone-alt';
+                                    button.classList.remove('speaking');
+                                    currentAudio = null;
+                                };
+                            } else {
+                                // Fallback to browser TTS
+                                useBrowserTTS(text, lang, icon, button);
+                            }
+                        } else {
+                            // Fallback to browser TTS
+                            useBrowserTTS(text, lang, icon, button);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Google TTS error:', error);
+                        // Fallback to browser TTS
+                        useBrowserTTS(text, lang, icon, button);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
