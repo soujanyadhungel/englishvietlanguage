@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.DS_Store
+app.log
+vocabulary.csv
+.vscode/
+*.db
+*.sqlite3
+
+# If you use a virtual environment, add its folder name here, e.g.:
+# venv/
+# .venv/ 

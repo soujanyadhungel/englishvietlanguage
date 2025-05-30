@@ -1,0 +1,53 @@
+<tr>
+    <td>
+        <div class="d-flex align-items-center">
+            <strong class="text-primary me-2">{{ entry['English Word'] }}</strong>
+            <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['English Word'] }}" data-lang="en" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['English Word'] }}" data-lang="en" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['English Word'] }}" data-lang="en" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex align-items-start">
+            <span class="text-wrap me-2" data-cell="definition">{{ entry['English Definition'] }}</span>
+            <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="definition" title="Refresh Definition"><i class="fas fa-sync-alt"></i></button>
+            <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['English Definition'] }}" data-lang="en" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['English Definition'] }}" data-lang="en" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['English Definition'] }}" data-lang="en" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex align-items-start">
+            <em class="text-muted me-2" data-cell="example">{{ entry['English Example'] }}</em>
+            <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="example" title="Refresh Example"><i class="fas fa-sync-alt"></i></button>
+            <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['English Example'] }}" data-lang="en" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['English Example'] }}" data-lang="en" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['English Example'] }}" data-lang="en" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex align-items-start">
+            <span class="text-wrap me-2" data-cell="vietnamese_definition">{{ entry['Vietnamese Definition'] }}</span>
+            <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="vietnamese_definition" title="Refresh Vietnamese Definition"><i class="fas fa-sync-alt"></i></button>
+            <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['Vietnamese Definition'] }}" data-lang="vi" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['Vietnamese Definition'] }}" data-lang="vi" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['Vietnamese Definition'] }}" data-lang="vi" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
+        </div>
+    </td>
+    <td>
+        <div class="d-flex align-items-start">
+            <em class="text-muted me-2" data-cell="vietnamese_example">{{ entry['Vietnamese Example'] }}</em>
+            <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="vietnamese_example" title="Refresh Vietnamese Example"><i class="fas fa-sync-alt"></i></button>
+            <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['Vietnamese Example'] }}" data-lang="vi" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['Vietnamese Example'] }}" data-lang="vi" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+            <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['Vietnamese Example'] }}" data-lang="vi" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
+        </div>
+    </td>
+    <td>
+        <a href="{{ url_for('delete_word', word=entry['English Word']) }}" 
+           class="btn btn-sm btn-outline-danger"
+           onclick="return confirm('Are you sure you want to delete this word?')">
+            <i class="fas fa-trash"></i>
+        </a>
+    </td>
+</tr> 

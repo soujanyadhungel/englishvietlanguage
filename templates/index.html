@@ -109,56 +109,45 @@
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <strong class="text-primary me-2">{{ entry['English Word'] }}</strong>
-                                                        <button class="btn btn-sm btn-outline-secondary speak-btn" 
-                                                                data-text="{{ entry['English Word'] }}" 
-                                                                data-lang="en"
-                                                                title="Listen to pronunciation">
-                                                            <i class="fas fa-microphone-alt"></i>
-                                                        </button>
+                                                        <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['English Word'] }}" data-lang="en" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['English Word'] }}" data-lang="en" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['English Word'] }}" data-lang="en" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-start">
-                                                        <span class="text-wrap me-2">{{ entry['English Definition'] }}</span>
-                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
-                                                                data-text="{{ entry['English Definition'] }}" 
-                                                                data-lang="en"
-                                                                title="Listen to definition">
-                                                            <i class="fas fa-microphone-alt"></i>
-                                                        </button>
+                                                        <span class="text-wrap me-2" data-cell="definition">{{ entry['English Definition'] }}</span>
+                                                        <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="definition" title="Refresh Definition"><i class="fas fa-sync-alt"></i></button>
+                                                        <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['English Definition'] }}" data-lang="en" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['English Definition'] }}" data-lang="en" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['English Definition'] }}" data-lang="en" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-start">
-                                                        <em class="text-muted me-2">{{ entry['English Example'] }}</em>
-                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
-                                                                data-text="{{ entry['English Example'] }}" 
-                                                                data-lang="en"
-                                                                title="Listen to example">
-                                                            <i class="fas fa-microphone-alt"></i>
-                                                        </button>
+                                                        <em class="text-muted me-2" data-cell="example">{{ entry['English Example'] }}</em>
+                                                        <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="example" title="Refresh Example"><i class="fas fa-sync-alt"></i></button>
+                                                        <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['English Example'] }}" data-lang="en" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['English Example'] }}" data-lang="en" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['English Example'] }}" data-lang="en" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-start">
-                                                        <span class="text-wrap me-2">{{ entry['Vietnamese Definition'] }}</span>
-                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
-                                                                data-text="{{ entry['Vietnamese Definition'] }}" 
-                                                                data-lang="vi"
-                                                                title="Nghe định nghĩa">
-                                                            <i class="fas fa-microphone-alt"></i>
-                                                        </button>
+                                                        <span class="text-wrap me-2" data-cell="vietnamese_definition">{{ entry['Vietnamese Definition'] }}</span>
+                                                        <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="vietnamese_definition" title="Refresh Vietnamese Definition"><i class="fas fa-sync-alt"></i></button>
+                                                        <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['Vietnamese Definition'] }}" data-lang="vi" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['Vietnamese Definition'] }}" data-lang="vi" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['Vietnamese Definition'] }}" data-lang="vi" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex align-items-start">
-                                                        <em class="text-muted me-2">{{ entry['Vietnamese Example'] }}</em>
-                                                        <button class="btn btn-sm btn-outline-secondary speak-btn flex-shrink-0" 
-                                                                data-text="{{ entry['Vietnamese Example'] }}" 
-                                                                data-lang="vi"
-                                                                title="Nghe ví dụ">
-                                                            <i class="fas fa-microphone-alt"></i>
-                                                        </button>
+                                                        <em class="text-muted me-2" data-cell="vietnamese_example">{{ entry['Vietnamese Example'] }}</em>
+                                                        <button class="btn btn-sm btn-outline-secondary refresh-btn me-1" data-word="{{ entry['English Word'] }}" data-column="vietnamese_example" title="Refresh Vietnamese Example"><i class="fas fa-sync-alt"></i></button>
+                                                        <button class="btn btn-sm btn-outline-primary speak-btn me-1" data-text="{{ entry['Vietnamese Example'] }}" data-lang="vi" data-service="browser" title="Browser TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-success speak-btn me-1" data-text="{{ entry['Vietnamese Example'] }}" data-lang="vi" data-service="google" title="Google TTS"><i class="fas fa-microphone"></i></button>
+                                                        <button class="btn btn-sm btn-outline-warning speak-btn" data-text="{{ entry['Vietnamese Example'] }}" data-lang="vi" data-service="elevenlabs" title="ElevenLabs TTS"><i class="fas fa-microphone"></i></button>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -190,6 +179,16 @@
                                                         </button>
                                                     </div>
                                                 </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <small class="text-muted me-3">TTS Services:</small>
+                                                    <span class="badge bg-primary me-2"><i class="fas fa-microphone"></i> Browser</span>
+                                                    <span class="badge bg-success me-2"><i class="fas fa-microphone"></i> Google</span>
+                                                    <span class="badge bg-warning"><i class="fas fa-microphone"></i> ElevenLabs</span>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -267,6 +266,16 @@
                                                             </button>
                                                         </div>
                                                     </form>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <small class="text-muted me-3">TTS Services:</small>
+                                                        <span class="badge bg-primary me-2"><i class="fas fa-microphone"></i> Browser</span>
+                                                        <span class="badge bg-success me-2"><i class="fas fa-microphone"></i> Google</span>
+                                                        <span class="badge bg-warning"><i class="fas fa-microphone"></i> ElevenLabs</span>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -401,67 +410,97 @@
             }
             
             // Add click listeners to all speak buttons
-            document.querySelectorAll('.speak-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const text = this.getAttribute('data-text');
-                    const lang = this.getAttribute('data-lang');
-                    const icon = this.querySelector('i');
-                    
-                    // Stop any current audio
-                    if (currentAudio) {
-                        currentAudio.pause();
-                        currentAudio = null;
-                    }
-                    if (currentSpeechUtterance) {
-                        speechSynthesis.cancel();
-                    }
-                    
-                    // Show loading state
-                    icon.className = 'fas fa-spinner fa-spin text-primary';
-                    button.classList.add('speaking');
-                    
-                    // Use Google TTS for all languages (both English and Vietnamese)
-                    fetch('/generate_audio', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            text: text,
-                            language: lang
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success && data.audio) {
-                            // Play Google TTS audio
-                            const success = playGoogleTTSAudio(data.audio);
-                            if (success) {
-                                icon.className = 'fas fa-volume-up text-success';
-                                // Reset after audio ends
-                                currentAudio.onended = function() {
-                                    icon.className = 'fas fa-microphone-alt';
-                                    button.classList.remove('speaking');
-                                    currentAudio = null;
-                                };
-                            } else {
-                                // Fallback to browser TTS
-                                useBrowserTTS(text, lang, icon, button);
-                            }
-                        } else {
-                            // Fallback to browser TTS
-                            useBrowserTTS(text, lang, icon, button);
+            function setupSpeakButtons() {
+                document.querySelectorAll('.speak-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const text = this.getAttribute('data-text');
+                        const lang = this.getAttribute('data-lang');
+                        const service = this.getAttribute('data-service') || 'google';
+                        const icon = this.querySelector('i');
+                        if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+                        if (currentSpeechUtterance) { speechSynthesis.cancel(); }
+                        icon.className = 'fas fa-spinner fa-spin text-primary';
+                        this.classList.add('speaking');
+                        if (service === 'browser') {
+                            useBrowserTTS(text, lang, icon, this);
+                            return;
                         }
-                    })
-                    .catch(error => {
-                        console.error('Google TTS error:', error);
-                        // Fallback to browser TTS
-                        useBrowserTTS(text, lang, icon, button);
+                        fetch('/generate_audio', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ text: text, language: lang, service: service })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success && data.audio) {
+                                const success = playGoogleTTSAudio(data.audio);
+                                if (success) {
+                                    icon.className = 'fas fa-volume-up text-success';
+                                    currentAudio.onended = () => {
+                                        icon.className = 'fas fa-microphone';
+                                        this.classList.remove('speaking');
+                                        currentAudio = null;
+                                    };
+                                } else {
+                                    useBrowserTTS(text, lang, icon, this);
+                                }
+                            } else {
+                                useBrowserTTS(text, lang, icon, this);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('TTS error:', error);
+                            useBrowserTTS(text, lang, icon, this);
+                        });
                     });
                 });
-            });
+            }
+            setupSpeakButtons();
+            // Add click listeners to all refresh buttons
+            function setupRefreshButtons() {
+                document.querySelectorAll('.refresh-btn').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const word = this.getAttribute('data-word');
+                        const column = this.getAttribute('data-column');
+                        const icon = this.querySelector('i');
+                        const cell = this.closest('div').querySelector(`[data-cell="${column}"]`);
+                        
+                        icon.className = 'fas fa-spinner fa-spin';
+                        this.disabled = true;
+                        
+                        fetch('/refresh_content', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ word: word, column: column })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                cell.textContent = data.content;
+                                // Update all TTS buttons in this cell
+                                const ttsButtons = this.closest('div').querySelectorAll('.speak-btn');
+                                ttsButtons.forEach(btn => {
+                                    btn.setAttribute('data-text', data.content);
+                                });
+                                console.log(`Successfully refreshed ${column} for word ${word}`);
+                            } else {
+                                console.error(`Failed to refresh ${column} for word ${word}: ${data.message}`);
+                                alert('Failed to refresh content: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error(`Error refreshing ${column} for word ${word}: ${error}`);
+                            alert('Failed to refresh content. Please try again.');
+                        })
+                        .finally(() => {
+                            icon.className = 'fas fa-sync-alt';
+                            this.disabled = false;
+                        });
+                    });
+                });
+            }
         });
     </script>
 </body>

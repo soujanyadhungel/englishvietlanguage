@@ -1,114 +1,133 @@
 # English-Vietnamese Vocabulary Learning App
 
 ## 📚 What It Does
-A smart vocabulary learning tool that automatically generates English definitions, examples, and Vietnamese translations for any English word you enter. Just type a word and get a complete learning entry with text-to-speech capabilities.
+A smart vocabulary learning application designed to help users build their English and Vietnamese vocabulary. Enter an English word, and the app automatically fetches its English definition and an example sentence. It then translates both the definition and example into Vietnamese. The application also provides text-to-speech functionality for both English and Vietnamese words and phrases, utilizing Google Cloud services when available.
 
 ## 🏗️ Technical Architecture
 
 ### **Backend Stack**
-- **Language**: Python 3.11
-- **Framework**: Flask (lightweight web framework)
-- **Data Storage**: CSV files (simple, portable, no database needed)
-- **Server**: Gunicorn (production-ready WSGI server)
+- **Language**: Python (designed for 3.11+)
+- **Framework**: Flask (for the web application interface)
+- **Data Storage**: CSV file (`vocabulary.csv`) for easy portability and management of vocabulary lists.
+- **Server**: Gunicorn (recommended for production)
 
 ### **Frontend Stack**
-- **UI Framework**: Bootstrap 5 (responsive, dark theme)
+- **Structure**: HTML (`index.html`)
+- **Styling**: CSS (`style.css`), Bootstrap 5 (responsive, dark theme)
+- **Interactivity**: Vanilla JavaScript
 - **Icons**: Font Awesome
-- **JavaScript**: Vanilla JS with Web Speech API
-- **Styling**: Custom CSS with CSS variables
 
-### **External Services Used**
-1. **Dictionary API**: [Free Dictionary API](https://dictionaryapi.dev/)
-   - Completely free, no API key required
-   - Provides definitions and example sentences
-   - Reliable and fast response times
+### **Core Services & APIs**
+The application leverages external APIs for definitions, translations, and text-to-speech:
 
-2. **Translation Service**: Google Translate (via googletrans library)
-   - Free tier usage
-   - High-quality English to Vietnamese translations
-   - Works without API keys for moderate usage
+1.  **English Definitions & Examples**:
+    *   **Primary**: Attempts to generate contextually relevant definitions and examples by translating Vietnamese prompts using **Google Cloud Translation API** (requires `GOOGLE_CLOUD_API_KEY`).
+    *   **Fallback**: If the primary method fails or an API key is not provided, it uses the [Free Dictionary API](https://dictionaryapi.dev/) (no key required).
 
-3. **Text-to-Speech**: Browser's Web Speech API
-   - Built into modern browsers
-   - Supports English pronunciation
-   - No external dependencies
+2.  **Translation (English to Vietnamese)**:
+    *   **Primary**: Uses **Google Cloud Translation API** (requires `GOOGLE_CLOUD_API_KEY`) for high-quality translations of definitions and examples.
+    *   **Fallback**: If the primary method fails or an API key is not provided, it uses the `googletrans` library.
+
+3.  **Text-to-Speech (English & Vietnamese)**:
+    *   **Primary**: Uses **Google Cloud Text-to-Speech API** (requires `GOOGLE_CLOUD_API_KEY`) for natural-sounding audio.
+    *   **Fallback**: If the API key is not provided or the API call fails, the frontend may attempt to use the browser's built-in Web Speech API for English (though this is a client-side fallback and not directly controlled by the backend's `generate_audio` endpoint if the Google Cloud TTS fails).
 
 ## 🔧 How It Works
 
-1. **User Input**: Type an English word
-2. **Definition Lookup**: App queries Free Dictionary API for definition and example
-3. **Translation**: Google Translate converts definition and example to Vietnamese
-4. **Storage**: All data saved to CSV file
-5. **Display**: Shows in clean table with mic icons for audio playback
-6. **Audio**: Click mic icons to hear pronunciation using browser's speech synthesis
+1.  **User Input**: The user enters an English word into the web interface.
+2.  **Definition & Example Generation**:
+    *   The backend `VocabularyService` first tries to generate an English definition and example using a creative prompting strategy with the Google Cloud Translation API (if `GOOGLE_CLOUD_API_KEY` is set).
+    *   If this fails, it falls back to the Free Dictionary API.
+3.  **Translation**: The obtained English definition and example are translated into Vietnamese, prioritizing Google Cloud Translation API and falling back to `googletrans`.
+4.  **Storage**: The English word, its English definition/example, and the Vietnamese translations are saved into the `vocabulary.csv` file.
+5.  **Display**: The vocabulary list is displayed in a table on the web page.
+6.  **Audio Playback**: Users can click icons to hear the pronunciation. This triggers a call to the backend `/generate_audio` endpoint, which uses Google Cloud Text-to-Speech API (if `GOOGLE_CLOUD_API_KEY` is set) to generate and send back the audio. If the backend service fails to generate audio, the frontend has a browser-based speech synthesis as a last resort for English text.
 
-## 📊 Current Features
-- ✅ Automatic definition and example generation
-- ✅ Vietnamese translation of definitions and examples
-- ✅ Text-to-speech for English content
-- ✅ CSV export functionality
-- ✅ Search through vocabulary
-- ✅ Word deletion
-- ✅ Responsive design (works on mobile)
-- ✅ Dark theme interface
+## ✨ Key Features
+- Automatic English definition and example sentence generation for entered words.
+- Automatic Vietnamese translation of English definitions and examples.
+- Text-to-Speech for English words/phrases and Vietnamese translations (powered by Google Cloud TTS when API key is available).
+- Vocabulary data stored in a simple CSV file (`vocabulary.csv`).
+- Export vocabulary to CSV.
+- Search functionality for the vocabulary list.
+- Ability to delete words from the vocabulary.
+- Responsive, dark-themed web interface.
 
-## 🚀 Potential Improvements
+## 🛠️ Setup and Running the Application
 
-### **Translation Quality**
-- **Google Cloud Translation API**: More accurate and natural translations
-- **Context-aware translations**: Better handling of idioms and phrases
-- **Multiple translation options**: Show alternative translations
+### **Prerequisites**
+- Python 3.11 or newer.
+- `pip3` (Python package installer).
+- (Optional but Recommended) A **Google Cloud API Key** with "Cloud Translation API" and "Cloud Text-to-Speech API" enabled.
 
-### **Audio Quality**
-- **Google Text-to-Speech API**: Premium voices for both English and Vietnamese
-- **Native speaker recordings**: High-quality pronunciation examples
-- **Speed/pitch controls**: Customizable playback settings
+### **Installation**
+1.  **Clone the repository (if you haven't already):**
+    ```bash
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
 
-### **Enhanced Features**
-- **Spaced repetition system**: Smart review scheduling
-- **Progress tracking**: Learning statistics and streaks
-- **Categorization**: Organize words by topics/difficulty
-- **Offline mode**: Download vocabulary for offline use
-- **Collaborative learning**: Share vocabulary lists with others
+2.  **Set up Google Cloud API Key (Recommended):**
+    Export your API key as an environment variable. Replace `"YOUR_API_KEY"` with your actual key.
+    ```bash
+    export GOOGLE_CLOUD_API_KEY=\"YOUR_API_KEY\"
+    ```
+    You can add this line to your shell's configuration file (e.g., `~/.bashrc`, `~/.zshrc`) to make it permanent.
 
-### **Technical Upgrades**
-- **Database integration**: PostgreSQL for better data management
-- **User authentication**: Personal vocabulary collections
-- **API rate limiting**: Better handling of service quotas
-- **Caching layer**: Faster response times for repeated lookups
-- **Mobile app**: Native iOS/Android versions
+3.  **Install Dependencies:**
+    The project uses dependencies listed in `pyproject.toml`. Install them using `pip3`:
+    ```bash
+    pip3 install email-validator flask flask-sqlalchemy google-cloud-texttospeech google-cloud-translate googletrans==4.0.0rc1 gunicorn psycopg2-binary requests
+    ```
+    *(Note: `flask-sqlalchemy` and `psycopg2-binary` are listed but not actively used by the core CSV-based vocabulary features at the moment.)*
 
-## 💡 Why These Technologies?
+### **Running the Application**
+1.  **Development Server (Flask built-in):**
+    Good for testing and development.
+    ```bash
+    python3 main.py
+    ```
+    The application will typically be available at `http://0.0.0.0:5000` or `http://localhost:5000`.
 
-### **Chosen for Simplicity**
-- **Flask**: Lightweight, easy to deploy, perfect for MVPs
-- **CSV Storage**: No database setup, easy backup/export
-- **Free APIs**: No costs, quick to implement
+2.  **Production Server (Gunicorn):**
+    Recommended for a more robust deployment.
+    ```bash
+    gunicorn --bind 0.0.0.0:5000 main:app
+    ```
 
-### **Scalability Considerations**
-- **Free tier limits**: Current setup good for 100-1000 words/day
-- **CSV limitations**: Works well up to ~10,000 vocabulary entries
-- **Browser compatibility**: Works on all modern browsers
-
-## 🔒 Data & Privacy
-- **Local storage**: All vocabulary saved in CSV files
-- **No user tracking**: No analytics or personal data collection
-- **Offline capable**: Core functionality works without internet (except new word lookup)
-
-## 🛠️ Quick Setup
+## 🧪 Running Tests
+Unit tests are provided for the `VocabularyService`. To run them:
 ```bash
-# Install dependencies
-pip install flask googletrans==4.0.0rc1 requests gunicorn
+python3 -m unittest test_vocabulary_service.py
+```
+Ensure your `GOOGLE_CLOUD_API_KEY` is set in the environment, although the tests mock its usage for API calls.
 
-# Run the app
-gunicorn --bind 0.0.0.0:5000 main:app
+## 📂 Project Structure
+```
+.
+├── app.py                  # Flask application routes and logic
+├── main.py                 # Main entry point to run the Flask app
+├── vocabulary_service.py   # Core logic for vocabulary, definitions, translations, TTS
+├── vocabulary.csv          # Stores the vocabulary data
+├── templates/
+│   └── index.html          # Main HTML page for the UI
+├── static/
+│   └── style.css           # CSS styles for the application
+│   └── (other static assets like images if any)
+├── test_vocabulary_service.py # Unit tests for VocabularyService
+├── pyproject.toml          # Project metadata and dependencies (for uv/pip)
+├── README.md               # This file
+└── .git/                   # Git version control data
 ```
 
-## 📈 Usage Stats
-- **Response time**: ~2-3 seconds per new word (including translation)
-- **Storage**: ~1KB per vocabulary entry
-- **Browser support**: Chrome, Firefox, Safari, Edge (95%+ compatibility)
+## 🚀 Potential Future Enhancements
+- **Improved UI/UX**: More interactive elements, loading indicators for API calls.
+- **Error Handling**: More granular error messages on the frontend.
+- **Duplicate Word Check in Service**: Add `word_exists` check within `VocabularyService.add_word` to prevent duplicates at the service layer.
+- **Configuration File**: For API keys and other settings instead of only environment variables.
+- **Database Integration**: Switch from CSV to a database like SQLite or PostgreSQL for larger datasets and more complex queries (dependencies like `flask-sqlalchemy` and `psycopg2-binary` are already in `pyproject.toml`).
+- **User Accounts**: To allow users to have their own separate vocabulary lists.
 
 ---
 
-*This app demonstrates how modern web technologies can create powerful learning tools with minimal infrastructure and zero API costs.*
+*This application demonstrates building a useful language learning tool by integrating Python, Flask, and various web APIs, including powerful Google Cloud services.*
