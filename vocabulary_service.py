@@ -457,6 +457,9 @@ class VocabularyService:
             bool: True if the word was successfully processed (definition found), 
                   False otherwise. On Vercel, CSV write is skipped but success depends on getting data.
         """
+        # Log the Vercel environment status for debugging
+        logging.info(f"[add_word] VERCEL env var: {os.environ.get('VERCEL')}, IS_VERCEL flag: {IS_VERCEL}")
+
         if not english_word or not english_word.strip():
             logging.warning("add_word called with an empty or whitespace-only word.")
             return False
