@@ -8,6 +8,10 @@ from typing import List, Dict, Optional
 from google.cloud import translate_v2 as translate
 from google.cloud import texttospeech
 import base64
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configure basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -25,9 +29,9 @@ class VocabularyService:
         self.translator = Translator()  # googletrans Translator for fallback
         self.headers = ['English Word', 'English Definition', 'English Example', 'Vietnamese Definition', 'Vietnamese Example']
         
-        # Set actual API keys
-        self.api_key = "AIzaSyB6Wrr50VOchRDtWYHl4SIQ5LxtX1Ez_tY"  # Google Cloud API key
-        self.elevenlabs_api_key = "sk_ff8ff56d2f379773d4a974f3e8a24ae794cfda35ca059148"  # ElevenLabs API key
+        # Get API keys from environment variables
+        self.api_key = os.getenv("GOOGLE_CLOUD_API_KEY")
+        self.elevenlabs_api_key = os.getenv("ELEVENLABS_API_KEY")
         
         if not self.api_key:
             logging.warning("Google Cloud API key not set. Google Cloud services (Translate, TTS) will not be available.")

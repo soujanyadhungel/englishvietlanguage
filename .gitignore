@@ -6,6 +6,7 @@ vocabulary.csv
 .vscode/
 *.db
 *.sqlite3
+.env
 
 # If you use a virtual environment, add its folder name here, e.g.:
 # venv/
