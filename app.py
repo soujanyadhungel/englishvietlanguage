@@ -3,13 +3,12 @@ import logging
 from flask import Flask, render_template, request, redirect, url_for, flash, send_file, jsonify
 from vocabulary_service import VocabularyService
 
-# Configure logging
+# Configure logging to output to stdout/stderr for Vercel
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('app.log'),
-        logging.StreamHandler()
+        logging.StreamHandler() # Only use StreamHandler for Vercel
     ]
 )
 

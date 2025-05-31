@@ -285,19 +285,19 @@ class VocabularyService:
             text_lower = text.lower().strip()
             # More comprehensive map - still very basic
             pronunciation_map = {
-                '(^|\s)th': 'θ', ' th': ' ð', # Simplified th
-                'ch': 'tʃ',
-                'sh': 'ʃ',
-                'ph': 'f',
-                'tion': 'ʃən', 'sion': 'ʒən', 'cious': 'ʃəs', 'tious': 'ʃəs',
-                'ough': 'ɔːf', # Highly variable, this is one common pronunciation (e.g. tough, rough)
-                'augh': 'ɔːf',
-                'eigh': 'eɪ', 'igh': 'aɪ', 'ight': 'aɪt',
-                'oo': 'uː', # as in "food"
-                'ea': 'iː', # as in "read"
-                'ai': 'eɪ', # as in "rain"
-                'kn': 'n', 'gn': 'n', # silent k, g
-                'ps': 's', # silent p
+                r'(^|\s)th': 'θ', r' th': ' ð', # Simplified th
+                r'ch': 'tʃ',
+                r'sh': 'ʃ',
+                r'ph': 'f',
+                r'tion': 'ʃən', r'sion': 'ʒən', r'cious': 'ʃəs', r'tious': 'ʃəs',
+                r'ough': 'ɔːf', # Highly variable, this is one common pronunciation (e.g. tough, rough)
+                r'augh': 'ɔːf',
+                r'eigh': 'eɪ', r'igh': 'aɪ', r'ight': 'aɪt',
+                r'oo': 'uː', # as in "food"
+                r'ea': 'iː', # as in "read"
+                r'ai': 'eɪ', # as in "rain"
+                r'kn': 'n', r'gn': 'n', # silent k, g
+                r'ps': 's', # silent p
             }
             
             pronunciation = text_lower
